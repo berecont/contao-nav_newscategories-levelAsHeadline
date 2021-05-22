@@ -1,0 +1,57 @@
+<?php
+
+/*
+ * oRiginal template by codefog
+ * changes by beRecont
+ * changes: 2 level categoRies - first level used as headline and need no href
+ *
+ * News Categories bundle for Contao Open Source CMS.
+ * https://github.com/codefog/contao-news_categories
+ *
+ * @copyright  Copyright (c) 2017, Codefog
+ * @author     Codefog <https://codefog.pl>
+ * @license    MIT
+ */
+
+?>
+
+
+<ul class="<?= $this->level ?><?php if ($this->isActiveCategories): ?> active-categories<?php endif; ?>">
+    <?php $cnt = 0; ?>
+    <?php foreach ($this->items as $item): ?>
+        <?php // dump($cnt, $this->level); ?>
+        <?php if ($item['isActive']): ?>
+            <li class="<?= $item['class'] ?>">
+
+                <strong class="<?= $item['class'] ?>"<?php if ($item['subitems']): ?> aria-haspopup="true"<?php endif; ?>>
+                    <span class="name" itemprop="name"><?= $item['link'] ?></span>
+                </strong>
+
+                <?= $item['subitems'] ?>
+            </li>
+        <?php else: ?>
+            <li class="<?= $item['class'] ?>">
+
+                
+                <?php if ((($cnt == 0) && ($this->level == "level_1")) || (($this->level == "level_2"))): ?>
+
+                <a href="<?= $item['href'] ?>" class="<?= $item['class'] ?>" title="<?= $item['linkTitle'] ?>" itemprop="url"<?php if ($item['subitems']): ?> aria-haspopup="true"<?php endif; ?>>
+                    <span class="name" itemprop="name"><?= $item['link'] ?></span>
+                </a>
+                <?= $item['subitems'] ?>
+
+                <?php else: ?>
+
+                <p class="<?= $item['class'] ?>" <?php if ($item['subitems']): ?> aria-haspopup="true"<?php endif; ?>>
+                    <span class="name" itemprop="name"><?= $item['link'] ?></span>
+                </p>
+                <?= $item['subitems'] ?>
+                
+                <?php endif; ?>
+            </li>
+        <?php endif; ?>
+    <?php $cnt++; ?>    
+    <?php endforeach; ?>
+</ul>
+
+
